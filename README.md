@@ -1,53 +1,79 @@
-# Image Classification using ResNet18
+# ASL Number Image Classifier
 
-## Project Description
-This project implements an image classification system using a deep learning model based on ResNet18. The model is fine-tuned using transfer learning to classify images into multiple categories from a custom dataset. The pipeline includes data loading, preprocessing, training, and inference.
-
----
-
-## Model Choice
-We use ResNet18 (pretrained on ImageNet) from torchvision.
-
-Reason for choice:
-- Strong performance on image classification tasks
-- Works well with limited data due to transfer learning
-- Residual connections help with stable training
-
-The final fully connected layer is modified to output:
-NUM_CLASSES = 10
+This project implements a deep learning model to classify American Sign Language (ASL) hand gestures representing numbers (0–9). The model is trained using a convolutional neural network based on ResNet18.
 
 ---
 
-## Dataset
+## Project Structure
 
-The dataset must be structured in the following format:
-
-data/
- ├── class_1/
- ├── class_2/
- ├── class_3/
- ├── ...
- └── class_10/
-
-Each folder contains images of that class.
-
-### Dataset Download
-(Add your dataset link here)
-
-Example:
-https://your-dataset-link.com
-
-### Setup Instructions
-1. Download the dataset
-2. Extract it into the project root directory
-3. Ensure the folder name is:
-   data/
+* `model.py` → Model architecture
+* `train.py` → Training loop
+* `dataset.py` → Dataset loading and preprocessing
+* `predict.py` → Prediction logic
+* `interface.py` → Interface for running predictions
+* `config.py` → Hyperparameters and paths
+* `data/` → Sample dataset
+* `checkpoints/final_weights.pth` → Trained model weights
 
 ---
 
 ## Installation
 
-Clone the repository:
-```bash
-git clone https://github.com/your-username/your-repo-name.git
-cd your-repo-name
+Install the required dependencies:
+
+pip install torch torchvision numpy pillow
+
+---
+
+## Training
+
+To train the model from scratch:
+
+python train.py
+
+This will train the model and save weights to:
+
+checkpoints/final_weights.pth
+
+---
+
+## Prediction
+
+To run the prediction pipeline:
+
+python interface.py
+
+---
+
+## Manual Test (Optional)
+
+You can also test the model directly using:
+
+python -c "from interface import *; import torch; from config import NUM_CLASSES; model=TheModel(NUM_CLASSES); model.load_state_dict(torch.load('checkpoints/final_weights.pth', map_location='cpu')); model.eval(); print(the_predictor(model, ['data/0/hand1_0_bot_seg_1_cropped.jpeg']))"
+
+---
+
+## Dataset
+
+The dataset used for this project was sourced from Kaggle.
+Only a subset of the dataset is included in this repository for demonstration purposes.
+
+---
+
+## Notes
+
+* The model is trained on a small dataset for demonstration.
+* Accuracy is not the primary focus; correct implementation and functionality are emphasized.
+* The project demonstrates a complete pipeline: data loading → training → saving weights → inference.
+
+---
+
+## Summary
+
+This repository contains a fully functional ASL number classifier with:
+
+* Working training pipeline
+* Saved and loadable model weights
+* End-to-end prediction capability
+
+The project is ready to run and evaluate.
